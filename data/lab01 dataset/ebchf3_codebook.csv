@@ -1,0 +1,21 @@
+﻿Variable,Description
+id,1-1663
+age,in years
+male,"1 for men, 0 for women"
+sbp,"average of 3 readings, in mmHg"
+dbp,"average of 3 readings, in mmHg"
+phys,score on a physical performance test (higher better)
+cogerr,number of errors on a cognitive test (SPMSQ)
+pefr,"Peak expiratory flow rate, in liters/min"
+mile,"1 if able to walk a half mile, 0 otherwise"
+stair,"1 if able to climb a flight of stairs, 0 otherwise"
+prioraf,1 if hx of atrial fibrillation. 0 otherwise
+priorchd,"1 if history of coronary heart disease, 0 otherwise"
+valve,"1 if history of valvular heart disease, 0 otherwise"
+antih,"1 if current use of antihypertensive drugs, 0 otherwise"
+psmok,"1 if former smoker, 0 otherwise"
+csmok,"1 if current smoker, 0 otherwise"
+dm,"1 if history of diabetes mellitus, 0 otherwise"
+priorchf,"1 if history of congestive heart failure, 0 otherwise"
+dig,"1 if current user of digitalis, 0 otherwise"
+loop,"1 if current user of loop diuretics, 0 otherwise"
