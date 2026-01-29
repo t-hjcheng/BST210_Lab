@@ -3,7 +3,6 @@ title: "BST210 Lab 01"
 output: html_document
 date: "January 29-30, 2026"
 header-includes: \usepackage{amsmath} \usepackage{amssymb} 
-
 ---
 
 ```{r setup, include=FALSE}
@@ -14,15 +13,15 @@ In this lab, we will examine the relationship of systolic blood pressure (SBP) w
 
 ## Question 1
 
-**Clear your workspace, read in the `tidyverse` and `ggplot2` packages, and read the `ebchf3.csv` dataset into R.** 
+**Clear your workspace, read in the `tidyverse` and `ggplot2` packages, and read the `ebchf3.csv` dataset into R.**
 
-Install the packages first, if necessary. Go to Canvas and download the dataset `ebchf3.csv` from Week 1. The codebook is also available on Canvas. Do not use Safari to download data from Canvas; use another browser or else it will not work. Save the dataset in a location that makes sense for you. Then, read in the data using the `read.csv` function and save it as a data frame called `d`. On a Mac, you can right click the file > Get Info > Select the text after “Where:” and then copy that to the clipboard and paste into your code. On a PC, you can right click the file > Copy as Path to copy it, and then paste it yourself.
+Install the packages first, if necessary. Go to Canvas and download the dataset `ebchf3.csv` from Week 1. The codebook is also available on Canvas. Do not use Safari to download data from Canvas; use another browser or else it will not work. Save the dataset in a location that makes sense for you. Then, read in the data using the `read.csv` function and save it as a data frame called `d`. On a Mac, you can right click the file \> Get Info \> Select the text after “Where:” and then copy that to the clipboard and paste into your code. On a PC, you can right click the file \> Copy as Path to copy it, and then paste it yourself.
 
 ```{r, message=FALSE}
 rm(list=ls())
 library(tidyverse)
 library(ggplot2)
-d <- read.csv("/Users/tt469/Library/CloudStorage/GoogleDrive-tthaweethai@mgh.harvard.edu/My Drive/BST210 Spring 2026/Data/ebchf3/ebchf3.csv") # specify local filepath, in quotations
+d <- read.csv("data/lab01 dataset/ebchf3.csv") # specify local filepath, in quotations
 
 ```
 
@@ -36,7 +35,7 @@ You can use `head()` to show the first 5 rows of the data. Alternatively, click 
 head(d)
 ```
 
-Each row represents a different participant and each column represents a different variable. 
+Each row represents a different participant and each column represents a different variable.
 
 ## Question 3
 
@@ -50,7 +49,7 @@ d %>%
   ungroup()
 ```
 
-Referring to the codebook, the variable `csmok` equals 1 for current smokers and  equals 0 for current nonsmokers. Above are two ways of counting the number of smokers and nonsmokers in the population. Note that the `table()` function will not show if there are individuals with missing smoking data. Instead, you would use `table(d$csmok, useNA=”always”)` to show the count of those with missing data. In this case, there are no missing values. The second approach, using tidyverse, would automatically count those with missing data.
+Referring to the codebook, the variable `csmok` equals 1 for current smokers and equals 0 for current nonsmokers. Above are two ways of counting the number of smokers and nonsmokers in the population. Note that the `table()` function will not show if there are individuals with missing smoking data. Instead, you would use `table(d$csmok, useNA=”always”)` to show the count of those with missing data. In this case, there are no missing values. The second approach, using tidyverse, would automatically count those with missing data.
 
 There are 191 current smokers and 1472 current nonsmokers. You can calculate the % by hand, or you can use R:
 
@@ -72,7 +71,7 @@ There are `r nrow(d %>% filter(csmok==1))` current smokers and `r nrow(d %>% fil
 
 ## Question 4
 
-**Create a subset of the data with only smokers using the filter function in the tidyverse package.** 
+**Create a subset of the data with only smokers using the filter function in the tidyverse package.**
 
 ```{r}
 d.smok <- d %>% filter(csmok==1)
@@ -80,7 +79,7 @@ d.smok <- d %>% filter(csmok==1)
 
 ## Question 5
 
-**Perform a two-sample t-test (unequal variances) evaluating whether the mean SBP differs by current smoking status.** 
+**Perform a two-sample t-test (unequal variances) evaluating whether the mean SBP differs by current smoking status.**
 
 Use the `t.test` function in R and refer to the help documentation, referring to `?t.test` if necessary. You can use `$` to extract a given variable from a data frame to obtain a vector; for example: `d$sbp` will give you a vector that has the SBP for all participants in the dataset. Interpret the results.
 
@@ -89,7 +88,7 @@ d.nonsmok <- d %>% filter(csmok==0)
 t.test(d.smok$sbp, d.nonsmok$sbp)
 ```
 
-The average SBP among current smokers is 137.1 mmHg. The average SBP among current nonsmokers is 136.7 mmHg. Using a significance level of 0.05, the p-value of 0.784 indicates that we do not have evidence to reject the null that the average SBP between current smokers and nonsmokers is the same. 
+The average SBP among current smokers is 137.1 mmHg. The average SBP among current nonsmokers is 136.7 mmHg. Using a significance level of 0.05, the p-value of 0.784 indicates that we do not have evidence to reject the null that the average SBP between current smokers and nonsmokers is the same.
 
 ## Question 6
 
@@ -112,7 +111,6 @@ $E\left[SBP_i│Current smoker_i=1\right]=\widehat{\beta}_0+\widehat{\beta}_1=13
 
 The average SBP among current smokers is 137.1. Note that the two estimated means are the same as obtained via the t-test.
 
-
 ## Question 7
 
 **Perform a hypothesis test evaluating whether the mean = SBP differs by smoking status.**
@@ -127,17 +125,17 @@ This was almost exactly the same conclusion as the t-test, with a p-value that o
 
 ## Question 8
 
-**We will now look at age as the exposure. Using the `cor()` function in R, what is the correlation between age and SBP? Is this Pearson, Kendall, or Spearman correlation? **
+**We will now look at age as the exposure. Using the `cor()` function in R, what is the correlation between age and SBP? Is this Pearson, Kendall, or Spearman correlation?**
 
 ```{r}
 cor(d$age, d$sbp)
 ```
 
-The correlation between age and SBP is 0.0694. If you look at the help documentation for the function, and scroll down to “method” under the Arguments section, you can see that the Pearson correlation is default. So, this is the Pearson correlation. 
+The correlation between age and SBP is 0.0694. If you look at the help documentation for the function, and scroll down to “method” under the Arguments section, you can see that the Pearson correlation is default. So, this is the Pearson correlation.
 
 ## Question 9
 
-**Generate a scatter plot with exposure age and outcome SBP. You can either use base R, or ggplot2. **
+**Generate a scatter plot with exposure age and outcome SBP. You can either use base R, or ggplot2.**
 
 ```{r}
 plot(d$age,d$sbp)
@@ -149,7 +147,7 @@ Note that generating plots will always be extra credit and learning to generate 
 
 ## Question 10
 
-**Fit a linear regression with exposure variable age (centered at 80) and outcome SBP. **
+**Fit a linear regression with exposure variable age (centered at 80) and outcome SBP.**
 
 ```{r}
 d$age_80 <- d$age-80
@@ -159,14 +157,13 @@ summary(fit.age)
 
 ## Question 11
 
-**Write down the model and interpret the estimated regression coefficients. **
+**Write down the model and interpret the estimated regression coefficients.**
 
 $SBP_i=\beta_0+\beta_1 (Age_i-80)+\epsilon_i$
 
 $\widehat{\beta}_{0}=137.3$: The average SBP among subjects aged 80 is 137.3 mmHg.
 
-$\widehat{\beta}=0.260$: On average, each 1-year increase in age is associated with an increase in SBP of 0.26 mmHg. 
-
+$\widehat{\beta}=0.260$: On average, each 1-year increase in age is associated with an increase in SBP of 0.26 mmHg.
 
 ## Question 12
 
@@ -177,7 +174,6 @@ The null hypothesis is that there is no linear association between age and mean 
 The alternative hypothesis is that there is a linear association between age and mean SBP: $H_1:\beta_1\ne 0$
 
 The p-value corresponding to this test is 0.005. Using a significance level of 0.05, the p-value of 0.005 indicates that we can reject the null and conclude that the mean SBP has a linear association with age as interpreted above $(\widehat{\beta}_1)$.
-
 
 ## Question 13
 
@@ -194,7 +190,7 @@ MSS <- sum( (d$predicted_sbp - mean(d$sbp))^2 )
 MSS
 ```
 
-### b.	Residual sum of squares (RSS)
+### b. Residual sum of squares (RSS)
 
 Calculate the difference between the observed values and the model-predicted values, take the square, and then the sum of all squares. We already calculated the residuals so you don’t need to do this again.
 
@@ -212,7 +208,7 @@ summary(fit.age)$deviance
 
 ### c. Total sum of squares (TSS)
 
-Calculate the difference between the observed values and the overall mean, take the square, and then the sum of all squares. 
+Calculate the difference between the observed values and the overall mean, take the square, and then the sum of all squares.
 
 ```{r}
 TSS <- sum( (d$sbp - mean(d$sbp))^2 )
@@ -233,7 +229,7 @@ The formula for $R^2$ is `MSS/TSS`.
 MSS/TSS
 ```
 
-Another way to obtain the $R^2$ is to use `lm()` instead of `glm()` and extract it from the summary. It is denoted as the `Multiple R-squared`. 
+Another way to obtain the $R^2$ is to use `lm()` instead of `glm()` and extract it from the summary. It is denoted as the `Multiple R-squared`.
 
 ```{r}
 fit.age.lm <- lm(sbp~age_80,data=d)
