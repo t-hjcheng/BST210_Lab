@@ -19,6 +19,14 @@ d %>%
   summarise(n=n()) %>% 
   ungroup()
 
+?summarise    #Use ? to access Help
+# If you want to save it into a new dataset 
+d_new <- d %>% 
+  group_by(csmok) %>%
+  summarise(n=n()) %>% 
+  ungroup()
+
+
 d %>% 
   group_by(csmok) %>%
   summarise(n=n(),
