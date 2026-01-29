@@ -8,14 +8,15 @@ d <- read.csv("data/lab01 dataset/ebchf3.csv")
 # Question 2 --------------------------------------------------------------
 #View the first few rows of the data.
 head(d)
-
+dim(d)    #Take a loot at the total amount of id and variables
+d$csmok
 
 # Question 3 -------------------------------------------------------------
 table(d$csmok)
 
 d %>% 
   group_by(csmok) %>%
-  summarise(n=n()) %>%
+  summarise(n=n()) %>% 
   ungroup()
 
 d %>% 
